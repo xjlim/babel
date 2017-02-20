@@ -15,7 +15,7 @@ const PACKAGE_FILENAME     = "package.json";
 
 function exists(filename) {
   const cached = existsCache[filename];
-  if (cached == null) {
+  if (cached === undefined) {
     return existsCache[filename] = fs.existsSync(filename);
   } else {
     return cached;
