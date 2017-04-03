@@ -24,6 +24,7 @@ export type Format = {
   minified: boolean;
   quotes: "single" | "double";
   concise: boolean;
+  isScriptContext: boolean;
   indent: {
     adjustMultilineComment: boolean;
     style: string;
