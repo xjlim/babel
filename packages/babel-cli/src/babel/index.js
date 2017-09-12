@@ -154,10 +154,14 @@ commander.option(
   "-D, --copy-files",
   "When compiling a directory copy over non-compilable files",
 );
+commander.option(
+  "--copy-dotfiles",
+  "When --copy-files is set, dotfiles are copied as well",
+);
 commander.option("-q, --quiet", "Don't log anything");
 commander.option(
   "--delete-dir-on-start",
-  "Delete's the out directory before compilation",
+  "Delete the out directory before compilation",
 );
 /* eslint-enable max-len */
 
@@ -212,6 +216,10 @@ if (commander.deleteDirOnStart && !commander.outDir) {
   errors.push("--delete-dir-on-start requires --out-dir");
 }
 
+if (commander.copyDotfiles && !commander.copyFiles) {
+  errors.push("--copy-dotfiles requires --copy-files");
+}
+
 if (errors.length) {
   console.error(errors.join(". "));
   process.exit(2);
@@ -233,6 +241,7 @@ delete opts.skipInitialBuild;
 delete opts.outFile;
 delete opts.outDir;
 delete opts.copyFiles;
+delete opts.copyDotfiles;
 delete opts.quiet;
 delete opts.configFile;
 delete opts.deleteDirOnStart;

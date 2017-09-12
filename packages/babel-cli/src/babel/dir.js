@@ -71,7 +71,14 @@ export default function(commander, filenames, opts) {
       if (commander.deleteDirOnStart) {
         util.deleteDir(commander.outDir);
       }
-      util.readdir(dirname).forEach(function(filename) {
+
+      let readDirFilter;
+
+      if (commander.copyDotfiles) {
+        readDirFilter = () => true;
+      }
+
+      util.readdir(dirname, readDirFilter).forEach(function(filename) {
         const src = path.join(dirname, filename);
         handleFile(src, filename, dirname);
       });
