@@ -1,5 +1,4 @@
 import SourceMap from "./source-map";
-import * as messages from "babel-messages";
 import Printer, { type Format } from "./printer";
 
 /**
@@ -73,9 +72,11 @@ function normalizeOptions(code, opts): Format {
     format.compact = code.length > 500_000; // 500KB
 
     if (format.compact) {
+      /* eslint-disable max-len */
       console.error(
-        "[BABEL] " + messages.get("codeGeneratorDeopt", opts.filename, "500KB"),
+        `[BABEL] Note: The code generator has deoptimised the styling of ${opts.filename} as it exceeds the max of 500KB.`,
       );
+      /* eslint-enable max-len */
     }
   }
 
